@@ -17,9 +17,8 @@ services:
           name: gigflow-frontend
           property: url
 
-  - type: web
+  - type: static
     name: gigflow-frontend
-    env: static
     rootDir: frontend
     plan: free
     buildCommand: npm install && npm run build
