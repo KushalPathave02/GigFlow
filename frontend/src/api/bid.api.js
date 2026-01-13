@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://gigflow-wfog.onrender.com/api/bids';
+const API_URL = `${import.meta.env.VITE_API_URL}/api/bids`;
 
 const placeBid = async (bidData, token) => {
   const config = {
