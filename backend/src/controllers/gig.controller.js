@@ -4,17 +4,19 @@ const Gig = require('../models/Gig.model');
 // @route   GET /api/gigs
 // @access  Public
 const getGigs = async (req, res) => {
-  const keyword = req.query.search
-    ? {
-        title: {
-          $regex: req.query.search,
-          $options: 'i',
-        },
-      }
-    : {};
+  try {
+    const search = req.query.search || '';
 
-  const gigs = await Gig.find({ ...keyword, status: 'open' }).populate('ownerId', 'name email');
-  res.json(gigs);
+    const gigs = await Gig.find({
+      status: 'open',
+      title: { $regex: search, $options: 'i' },
+    }).populate('ownerId', 'name email');
+
+    res.status(200).json(gigs);
+  } catch (error) {
+    console.error('Get gigs error:', error);
+    res.status(500).json({ message: 'Failed to fetch gigs' });
+  }
 };
 
 // @desc    Create a gig
