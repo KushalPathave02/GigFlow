@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = '/api/gigs';
+const API_URL = 'https://gigflow-wfog.onrender.com/api/gigs';
 
 const getGigs = async (search = '') => {
   const response = await axios.get(`${API_URL}?search=${search}`);
