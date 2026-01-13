@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCredentials } from '../store/authSlice';
 import { register } from '../api/auth.api';
+import toast from 'react-hot-toast';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -25,6 +26,7 @@ const Register = () => {
     try {
       const res = await register({ name, email, password });
       dispatch(setCredentials(res));
+      toast.success('Registered successfully!');
       navigate('/');
     } catch (err) {
       console.error(err?.data?.message || err.error);

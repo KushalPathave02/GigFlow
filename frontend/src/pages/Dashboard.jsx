@@ -50,7 +50,7 @@ const Dashboard = () => {
           <h2 className="text-2xl font-bold text-gray-800 mb-4">My Bids</h2>
           <div className="space-y-4">
             {myBids.length > 0 ? (
-              myBids.map((bid) => (
+              myBids.filter(bid => bid.gigId).map((bid) => (
                 <div key={bid._id} className="bg-gray-50 p-4 rounded-lg shadow-sm">
                   <p className="font-semibold text-gray-700">On gig: <Link to={`/gig/${bid.gigId._id}`} className="text-blue-600 hover:underline">{bid.gigId.title}</Link></p>
                   <p className={`text-sm font-medium ${bid.status === 'hired' ? 'text-green-600' : 'text-gray-600'}`}>

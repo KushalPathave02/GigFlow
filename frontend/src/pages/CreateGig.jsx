@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { createGig } from '../api/gig.api';
+import toast from 'react-hot-toast';
 
 const CreateGig = () => {
   const [title, setTitle] = useState('');
@@ -15,6 +16,7 @@ const CreateGig = () => {
     e.preventDefault();
     try {
       await createGig({ title, description, budget }, userInfo.token);
+      toast.success('Gig created successfully!');
       navigate('/');
     } catch (err) {
       console.error(err?.data?.message || err.error);

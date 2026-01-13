@@ -106,7 +106,7 @@ const hireBid = async (req, res) => {
 // @route   GET /api/bids/mybids
 // @access  Private
 const getMyBids = async (req, res) => {
-  const bids = await Bid.find({ freelancerId: req.user._id }).populate('gigId', 'title');
+  const bids = await Bid.find({ freelancerId: req.user._id }).populate('gigId', 'title _id');
   res.json(bids);
 };
 

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getGigById } from '../api/gig.api';
 import { placeBid, getBidsForGig, hireBid } from '../api/bid.api';
+import toast from 'react-hot-toast';
 import BidCard from '../components/BidCard';
 
 const GigDetails = () => {
@@ -40,6 +41,7 @@ const GigDetails = () => {
     e.preventDefault();
     try {
       await placeBid({ gigId: id, message, price }, userInfo.token);
+      toast.success('Bid placed successfully!');
       setMessage('');
       setPrice('');
       // Optionally, refresh bids to show the new one immediately
