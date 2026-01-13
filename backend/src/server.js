@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 
@@ -11,6 +12,11 @@ const { notFound, errorHandler } = require('./middleware/error.middleware');
 const authRoutes = require('./routes/auth.routes');
 
 const app = express();
+
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
