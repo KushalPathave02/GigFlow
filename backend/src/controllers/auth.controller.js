@@ -37,19 +37,20 @@ const registerUser = async (req, res) => {
 // @route   POST /api/auth/login
 // @access  Public
 const loginUser = async (req, res) => {
-  try {
-    const { email, password } = req.body;
+  const { email, password } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({ message: "Missing fields" });
-    }
+  const user = await User.findOne({ email });
 
-    // Dummy success test to confirm the route and CORS are working
-    return res.status(200).json({ message: "Login route working" });
-
-  } catch (err) {
-    console.error("Login error:", err);
-    return res.status(500).json({ message: "Login failed" });
+  if (user && (await user.matchPassword(password))) {
+    generateToken(res, user._id);
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+    });
+  } else {
+    res.status(401);
+    throw new Error('Invalid email or password');
   }
 };
 
